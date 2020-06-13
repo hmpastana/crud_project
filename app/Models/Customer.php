@@ -17,9 +17,10 @@ class Customer extends Model
         $insert->city = $data->city;
         $insert->state = $data->state;
         $insert->phone_number = $data->phone_number;
+        $insert->gender = $data->gender;
         $insert->save();
 
-        return true;
+        return $insert;
     }
 
     public function listCustomer()
@@ -40,7 +41,8 @@ class Customer extends Model
             'address' => $data->address,
             'city' => $data->city,
             'state' => $data->state,
-            'phone_number' => $data->phone_number
+            'phone_number' => $data->phone_number,
+            'gender' => $data->gender
         ]);
 
         return $customers;

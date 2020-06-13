@@ -14,8 +14,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customer = new Customer;
-        $list_customer = $customer->listCustomer();
+
         return view('customers.insert');
     }
 
@@ -40,8 +39,8 @@ class CustomerController extends Controller
         $customer = new Customer;
         $insert_customer = $customer->insertCustomer($request);
 
-        // return redirect()->route('customers.list_customer');
-        return back()->with('message-insert', 'Customer registered');
+        return redirect()->route('edit_customer', [$insert_customer->id])->with('message-insert', 'Customer registered');
+        // return back()->with('message-insert', 'Customer registered');
     }
 
     /**

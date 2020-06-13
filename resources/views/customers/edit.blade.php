@@ -89,6 +89,16 @@
                                     <input type="text" class="form-control" placeholder="State" value="{{ $customer_info['state'] }}" name="state">
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Gender</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2bs4" style="width: 100%;" name="gender">
+                                        <option value=""></option>
+                                        <option value="f" @if($customer_info['gender'] == 'f') selected @endif>Female</option>
+                                        <option value="m" @if($customer_info['gender'] == 'm') selected @endif>Male</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
@@ -109,38 +119,6 @@
 @parent
 
 <script>
-
-$(document).ready(function() {
-    setTimeout(function() {
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "progressBar": true,
-            "preventDuplicates": false,
-            "positionClass": "toast-top-center",
-            "onclick": null,
-            "showDuration": "400",
-            "hideDuration": "1000",
-            "timeOut": "7000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
-        @if (!is_null(session('message-insert')))
-            toastr.success('{{session('message-insert')}}');
-        @elseif(!is_null(session('message-delete')))
-            toastr.error('{{ session("message-delete") }}');
-        @elseif(!is_null(session('message-error')))
-            toastr.error('{{ session("message-error") }}');
-        @elseif(!is_null(session('message-success')))
-            toastr.success('{{ session("message-success") }}');
-        @elseif(isset($message_success) and $message_success == true)
-            toastr.success('{{ $message_success }}');
-        @endif
-    }, 1300);
-});
 </script>
 
 @endsection

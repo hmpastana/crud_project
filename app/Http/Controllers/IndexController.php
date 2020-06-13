@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Customer;
 
 use Illuminate\Http\Request;
 
@@ -13,8 +14,18 @@ class IndexController extends Controller
      */
     public function index()
     {
+        $customer = new Customer;
+        $count_customer = $customer->listCustomer()->count('id');
 
-        return view('index');
+        $female_gender = $customer->where('gender', 'f')->count('id');
+        $male_gender = $customer->where('gender', 'm')->count('id');
+
+        return view('index', [
+            'count_customer' => $count_customer,
+            'female_gender' => $female_gender,
+            'male_gender' => $male_gender
+
+        ]);
     }
 
     /**

@@ -23,6 +23,7 @@ class CreateCustomersTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('phone_number');
+            $table->enum('gender', ['m','f']);
         });
     }
 

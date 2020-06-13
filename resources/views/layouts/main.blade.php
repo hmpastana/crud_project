@@ -118,7 +118,8 @@
     });
 
     </script>
-    
+    @show
+
 </body>
 
 </html>

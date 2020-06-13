@@ -19,7 +19,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('index')}}">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard v1</li>
+                    <li class="breadcrumb-item active">Insert</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -85,6 +85,16 @@
                                 <label class="col-sm-2 col-form-label">State</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" placeholder="State"  name="state">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Gender</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2bs4" style="width: 100%;" name="gender">
+                                        <option value=""></option>
+                                        <option value="f">Female</option>
+                                        <option value="m">Male</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

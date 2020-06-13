@@ -7,7 +7,6 @@
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('admin_lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{ asset('admin_lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-<link rel="stylesheet" href="{{ asset('sweet_alert/package/dist/sweetalert2.min.css')}}">
 
 @endsection
 
@@ -45,7 +44,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="customer_list" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -70,15 +69,42 @@
                                         <td>{{$list_customer_array['phone_number']}}</td>
                                         <td>
                                             <div class="row">
-                                                <a href="{{ route('edit_customer', [$list_customer_array['id']]) }}"><button type="button" class="btn btn-block btn-outline-warning btn-xs"><i class="fas fa-edit"></i> </button></a>
-                                                <form method="POST" action="{{ route('delete_customer') }}" id="form_delete_customer_{{ $list_customer_array['id'] }}">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{ $list_customer_array['id'] }}"/>
-                                                    {{-- <button type="button" class="btn btn-block btn-outline-danger btn-xs delete_customer" id="{{ $list_customer_array['id'] }}"><i class="fas fa-trash"></i></button> --}}
-                                                </form>
+                                                <a href="{{ route('edit_customer', [$list_customer_array['id']]) }}">
+                                                    <button type="button" class="btn btn-block btn-outline-warning btn-xs"><i class="fas fa-edit"></i> </button>
+                                                </a>
+                                                <a href="#modal_delete_{{ $list_customer_array['id'] }}" data-toggle="modal" data-target="#modal_delete_{{ $list_customer_array['id'] }}">
+                                                    <button type="button" class="btn btn-block btn-outline-danger btn-xs" ><i class="fas fa-trash"></i></button>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
+                                    <!-- /.modal -->
+                                    <div class="modal fade" id="modal_delete_{{ $list_customer_array['id'] }}">
+                                        <form method="POST" action="{{ route('delete_customer') }}" id="form_delete_customer_{{ $list_customer_array['id'] }}">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $list_customer_array['id'] }}"/>
+                                            <div class="modal-dialog">
+                                                <div class="modal-content bg-danger">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Delete User</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Do you want to delete this user?</p>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-light" data-dismiss="modal">No</button>
+                                                        <button type="submit" class="btn btn-outline-light">Yes</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                        </form>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+                                    <!-- /.modal -->
                                 @endforeach
                             </tbody>
                             <tfoot>
@@ -95,7 +121,7 @@
                             </tfoot>
                         </table>
                     </div>
-                    <!-- /.card-body -->
+                        {{-- <!-- /.card-body --> --}}
                 </div>
                 <!-- /.card -->
             </div>
@@ -114,44 +140,16 @@
 <script src="{{ asset('admin_lte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{ asset('admin_lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
-
-<script src="{{ asset('sweet_alert/package/dist/sweetalert2.all.min.js')}}"></script>
-
 <script>
     $(function() {
-        $("#example1").DataTable({
-            "responsive": true,
-            "autoWidth": false,
+        $("#customer_list").DataTable({
             "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
+            "lengthChange": true,
+            "searching": true,
             "info": true,
+            "autoWidth": true,
+            "responsive": true,
         });
-    });
-
-    $('.delete_customer').click(function() {
-        var idCustomer = $(this).attr('id');
-        alert(idCustomer)
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-
-                $('#form_delete_customer_' + idCustomer).submit();
-            )
-        }
-        })
     });
 </script>
 
